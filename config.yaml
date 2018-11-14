@@ -1,0 +1,350 @@
+rooms:
+  - id: attic1
+    names:
+    - poddasze sekcja 1
+    devices:
+      - id: A1
+        deviceType: lamp
+        functions:
+        - turnOn
+        - turnOff
+        position:
+        - na suficie
+        - u sufitu
+        - na górze
+        - u góry
+      - id: A2
+        deviceType: lamp
+        functions:
+        - turnOn
+        - turnOff
+        position:
+        - na biurku
+      - id: A3
+        deviceType: radio
+        functions:
+        - turnOn
+        - turnOff
+        - setChannel
+        - next
+        - prev
+        - setVolume
+        - volumeUp
+        - volumeDown
+        - mute
+      - id: A4
+        deviceType: computer
+        functions:
+          - turnOn
+          - turnOff
+      - id: A5
+        deviceType: monitor
+        functions:
+          - turnOn
+          - turnOff
+  - id: attic2
+    devices:
+    - id: A6
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - na suficie
+      - u sufitu
+      - na górze
+      - u góry
+    - id: A7
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      - temperatureWarm
+      - temperatureCold
+      position:
+      - nad ławą
+    - id: A8
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - lewa
+    - id: A9
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - prawa
+    - id: A10
+      deviceType: tv
+      functions:
+      - turnOn
+      - turnOff
+      - setChannel
+      - next
+      - prev
+      - setVolume
+      - volumeUp
+      - volumeDown
+      - mute
+    - id: A11
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - za telewizorem
+  - id: attic
+    devices:
+    - id: A12
+      deviceType: lamp
+      functions:
+      - turnOff
+  - id: bedroom
+    devices:
+    - id: B1
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - na suficie
+      - u sufitu
+      - na górze
+      - u góry
+    - id: B2
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - lewa
+    - id: B3
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - prawa
+    - id: B4
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      - setBrightness
+    - id: B5
+      deviceType: tv
+      functions:
+      - turnOn
+      - turnOff
+      - setChannel
+      - next
+      - prev
+      - setVolume
+      - volumeUp
+      - volumeDown
+      - mute
+    - id: B6
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - za telewizorem
+    - id: B7
+      deviceType: lamp
+      functions:
+      - turnOff
+  - id: bathroom
+    devices:
+    - id: C1
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - na suficie
+      - u sufitu
+      - na górze
+      - u góry
+    - id: C2
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - nad lustrem
+    - id: C3
+      deviceType: fan
+      functions:
+      - turnOn
+      - turnOff
+    - id: C4
+      deviceType: blower
+      functions:
+      - turnOn
+      - turnOff
+    - id: C5
+      deviceType: lamp
+      functions:
+      - turnOff
+  - id: salon
+    devices:
+    - id: D1
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - na suficie
+      - u sufitu
+      - na górze
+      - u góry
+    - id: D2
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - lewa
+    - id: D3
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - prawa
+    - id: D4
+      deviceType: lamp
+      functions:
+      - turnOff
+  - id: kitchen
+    devices:
+    - id: E1
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - na suficie
+      - u sufitu
+      - na górze
+      - u góry
+    - id: E2
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - nad szafkami
+    - id: E3
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - pod szafkami
+    - id: E4
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - okap
+    - id: E5
+      deviceType: cookerHood
+      functions:
+      - turnOn
+      - turnOff
+    - id: E6
+      deviceType: fan
+      functions:
+      - turnOn
+      - turnOff
+    - id: E7
+      deviceType: lamp
+      functions:
+      - turnOff
+
+devices:
+  - id: lamp
+    names:
+    - lampa
+    - światło
+    - oświetlenie
+  - id: radio
+    names:
+    - radio
+  - id: computer
+    names:
+    - komputer
+  - id: monitor
+    names:
+    - monitor
+  - id: tv
+    names:
+    - telewizor
+  - id: cookerHood
+    names:
+    - okap
+  - id: fan
+    names:
+    - wentylator
+  - id: blower
+    names:
+    - dmuchawa
+
+functions:
+  - id: turnOn
+    names:
+    - włącz
+    - załącz
+    - zapal
+  - id: turnOff
+    names:
+    - wyłącz
+    - zgaś
+  - id: setChannel
+    names:
+    - zmień kanał na
+    - wybierz kanał
+    - przełącz na
+  - id: next
+    names:
+    - następny
+    - dalej
+    - kolejny
+  - id: prev
+    names:
+    - poprzedni
+    - wstecz
+    - cofnij
+  - id: volumeUp
+    names:
+    - podgłośnij
+    - zgłośnij
+  - id: volumeDown
+    names:
+    - ścisz
+    - przycisz
+  - id: setVolume
+    names:
+    - ustaw głośność na
+    - głośność
+    parameter: INT
+  - id: mute
+    names:
+    - wycisz
+  - id: temperatureWarm
+    names:
+    - temperatura ciepła
+    - barwa zimna
+  - id: temperatureCold
+    names:
+    - temperatura zimna
+    - barwa zimna
+  - id: setBrightness
+    names:
+    - ustaw jasność
