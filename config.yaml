@@ -302,49 +302,63 @@ functions:
     - włącz
     - załącz
     - zapal
+    command: on ID
   - id: turnOff
     names:
     - wyłącz
     - zgaś
+    command: off ID
   - id: setChannel
     names:
     - zmień kanał na
     - wybierz kanał
     - przełącz na
+    parameter: INT
+    command: set ID ch INT
   - id: next
     names:
     - następny
     - dalej
     - kolejny
+    command: set ID ch next
   - id: prev
     names:
     - poprzedni
     - wstecz
     - cofnij
+    command: set ID ch prev
   - id: volumeUp
     names:
     - podgłośnij
     - zgłośnij
+    command: set ID vol up
   - id: volumeDown
     names:
     - ścisz
     - przycisz
+    command: set ID vol down
   - id: setVolume
     names:
     - ustaw głośność na
     - głośność
     parameter: INT
+    command: set ID vol INT
   - id: mute
     names:
     - wycisz
+    command: set ID vol mute
   - id: temperatureWarm
     names:
     - temperatura ciepła
     - barwa zimna
+    command: set ID temp warm
   - id: temperatureCold
     names:
     - temperatura zimna
     - barwa zimna
+    command: set ID temp cold
   - id: setBrightness
     names:
     - ustaw jasność
+    parameter: INT
+    command: set ID br INT
