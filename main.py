@@ -9,41 +9,40 @@ def create_word_to_basic_form_mapping():
     for line in lines:
         line = line.lower()
         words = line.split(', ')
+        words = list(map(lambda x: x.strip(), words))
+        value = words[0]
+        for w in words:
+            if w in mapping:
+                value = mapping[w]
         for word in words:
             key = word.strip()
             if key not in mapping:
-                value = words[0].strip()
-                if value in mapping:
-                    value = mapping[value]
                 mapping[key] = value
     return mapping
 
 
 mapping_to_base_form = create_word_to_basic_form_mapping()
-# print(mapping['prawa'])
-#
-rooms = c.rooms_mock
-# devices = c.devices_mock
-# functions = c.functions_mock
-# device_types = c.device_types_mock
 
-c.parse_config()
-# rooms = c.rooms
+c.parse_config(mapping_to_base_form)
+rooms = c.rooms
 devices = c.devices
 functions = c.functions
 device_types = c.device_types
 
-# print(mapping['lampa'])
-# print(mapping['światło'])
-# print(mapping['oświetlenie'])
-# print(mapping['górne'])
-
 test_cases = [
-    'włącz światło w sypialni',
+    'włącz światło na suficie w lewej sekcji poddasza',
+    'włącz światło za telewizorem w sypialni',
     'wyłącz oświetlenie w sypialni',
     'zapal lewą lampę w sypialni',
     'zgaś prawą lampę w sypialni',
     'załącz lampę na suficie w sypialni',
+    'jakieś bzdury nie mające sensu',
+    'włącz wentylator w łazience',
+    'wyłącz światło pod szafkami w kuchni',
+    'wycisz radio w lewej sekcji poddasza',
+    'wycisz radio w lewej części poddasza',
+    'zgaś telewizor w sypialni',
+    'wyłącz dmuchawę w łazience',
 ]
 
 
@@ -60,11 +59,14 @@ def get_command(phrase):
         if alias in words:
             words.remove(alias)
 
-    room = list(filter(lambda x: len(rooms[x].intersection(words)) > 0, rooms))[0]
+    room = \
+    list(filter(lambda x: len(list(filter(lambda y: len(set(y).intersection(words)) == len(y), rooms[x]))) > 0, rooms))[
+        0]
     # print(room)
-    for alias in rooms[room]:
-        if alias in words:
-            words.remove(alias)
+    for x in rooms[room]:
+        for alias in x:
+            if alias in words:
+                words.remove(alias)
 
     # print(words)
     device_type = list(filter(lambda x: len(device_types[x].intersection(words)) > 0, device_types))[0]
@@ -78,18 +80,32 @@ def get_command(phrase):
     filtered_devices = list(filter(lambda x: x[1] == room, filtered_devices))
     filtered_devices = list(filter(lambda x: x[2] == device_type, filtered_devices))
     filtered_devices = list(filter(lambda x: function in x[3], filtered_devices))
-    candidate_devices = list(filter(lambda x: len(x[4].intersection(words)) > 0, filtered_devices))
+    candidate_devices = list(
+        filter(lambda x: len(list(filter(lambda y: len(set(y).intersection(words)) == len(y), x[4]))) > 0,
+               filtered_devices))
 
     if len(candidate_devices) > 0:
         device_id = candidate_devices[0][0]
     else:
-        device_id = list(filter(lambda x: len(x[4]) == 0, filtered_devices))[0][0]
+        devices_list = list(filter(lambda x: len(x[4]) == 0, filtered_devices))
+        if len(devices_list) == 1:
+            device_id = devices_list[0][0]
+        else:
+            return 'Polecenie jest niejednoznaczne'
 
     cmd = functions[function]['command'].replace('ID', device_id)
     return cmd
 
 
+def get_command_safe(phrase):
+    try:
+        return get_command(phrase)
+    except:
+        return 'Nie rozpoznano polecenia'
+
+
 for test_case in test_cases:
-    command = get_command(test_case)
+    command = get_command_safe(test_case)
     print('case: ' + test_case)
     print('result: ' + command)
+    print()

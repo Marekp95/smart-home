@@ -1,7 +1,8 @@
 rooms:
   - id: attic1
     names:
-    - poddasze sekcja 1
+    - poddasze sekcja lewa
+    - poddasze część lewa
     devices:
       - id: A1
         deviceType: lamp
@@ -43,6 +44,9 @@ rooms:
           - turnOn
           - turnOff
   - id: attic2
+    names:
+    - poddasze sekcja prawa
+    - poddasze część prawa
     devices:
     - id: A6
       deviceType: lamp
@@ -97,12 +101,16 @@ rooms:
       position:
       - za telewizorem
   - id: attic
+    names:
+    - poddasze
     devices:
     - id: A12
       deviceType: lamp
       functions:
       - turnOff
   - id: bedroom
+    names:
+    - sypialnia
     devices:
     - id: B1
       deviceType: lamp
@@ -134,6 +142,8 @@ rooms:
       - turnOn
       - turnOff
       - setBrightness
+      position:
+      - nocna
     - id: B5
       deviceType: tv
       functions:
@@ -158,6 +168,8 @@ rooms:
       functions:
       - turnOff
   - id: bathroom
+    names:
+    - łazienka
     devices:
     - id: C1
       deviceType: lamp
@@ -191,6 +203,8 @@ rooms:
       functions:
       - turnOff
   - id: salon
+    names:
+    - salon
     devices:
     - id: D1
       deviceType: lamp
@@ -221,6 +235,8 @@ rooms:
       functions:
       - turnOff
   - id: kitchen
+    names:
+    - kuchnia
     devices:
     - id: E1
       deviceType: lamp
@@ -310,9 +326,9 @@ functions:
     command: off ID
   - id: setChannel
     names:
-    - zmień kanał na
-    - wybierz kanał
-    - przełącz na
+    - zmień
+    - wybierz
+    - przełącz
     parameter: INT
     command: set ID ch INT
   - id: next
@@ -330,7 +346,6 @@ functions:
   - id: volumeUp
     names:
     - podgłośnij
-    - zgłośnij
     command: set ID vol up
   - id: volumeDown
     names:
@@ -339,7 +354,6 @@ functions:
     command: set ID vol down
   - id: setVolume
     names:
-    - ustaw głośność na
     - głośność
     parameter: INT
     command: set ID vol INT
@@ -349,16 +363,14 @@ functions:
     command: set ID vol mute
   - id: temperatureWarm
     names:
-    - temperatura ciepła
-    - barwa zimna
+    - ciepła
     command: set ID temp warm
   - id: temperatureCold
     names:
-    - temperatura zimna
-    - barwa zimna
+    - zimna
     command: set ID temp cold
   - id: setBrightness
     names:
-    - ustaw jasność
+    - jasność
     parameter: INT
     command: set ID br INT
