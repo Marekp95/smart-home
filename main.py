@@ -1,3 +1,6 @@
+import config_data as c
+
+
 def create_word_to_basic_form_mapping():
     dictionary = open('dictionary.txt', 'rb+')
     content = dictionary.read().decode('utf-8')
@@ -18,66 +21,17 @@ def create_word_to_basic_form_mapping():
 
 mapping_to_base_form = create_word_to_basic_form_mapping()
 # print(mapping['prawa'])
+#
+rooms = c.rooms_mock
+# devices = c.devices_mock
+# functions = c.functions_mock
+# device_types = c.device_types_mock
 
-rooms = {
-    'bedroom': {
-        'sypialnia'
-    },
-}
-
-devices = [
-    (
-        'B1',
-        'bedroom',
-        'lamp',
-        {'turnOn', 'turnOff'},
-        {'górne', 'sufit'},
-    ),
-    (
-        'B2',
-        'bedroom',
-        'lamp',
-        {'turnOn', 'turnOff'},
-        {'lewa'},
-    ),
-    (
-        'B3',
-        'bedroom',
-        'lamp',
-        {'turnOn', 'turnOff'},
-        {'prawa'},
-    ),
-    (
-        'B7',
-        'bedroom',
-        'lamp',
-        {'turnOn', 'turnOff'},
-        set({}),
-    ),
-]
-
-functions = {
-    'turnOn': {
-        'names': {
-            'włączyć', 'załączyć', 'uruchomić', 'zapalić',
-        },
-        'command': 'on ID',
-    },
-    'turnOff': {
-        'names': {
-            'wyłączyć', 'zgasić',
-        },
-        'command': 'off ID',
-    },
-}
-
-device_types = {
-    'lamp': {
-        'lampa',
-        'światło',
-        'oświetlenie',
-    },
-}
+c.parse_config()
+# rooms = c.rooms
+devices = c.devices
+functions = c.functions
+device_types = c.device_types
 
 # print(mapping['lampa'])
 # print(mapping['światło'])
@@ -95,15 +49,14 @@ test_cases = [
 
 def get_command(phrase):
     words = phrase.split(' ')
-    words = filter(lambda x: x != '', words)
-    words = map(lambda x: x.lower(), words)
-    words = filter(lambda x: x in mapping_to_base_form, words)
-    words = map(lambda x: mapping_to_base_form[x], words)
+    words = [x.lower() for x in words if x != '']
+    words = [mapping_to_base_form[x] for x in words if x in mapping_to_base_form]
     words = set(words)
     # print(words)
-    fun = list(filter(lambda x: len(functions[x]['names'].intersection(words)) > 0, functions))[0]
-    # print(fun)
-    for alias in functions[fun]['names']:
+    function_list = list(filter(lambda x: len(functions[x]['names'].intersection(words)) > 0, functions))
+    function = function_list[0]
+    # print(function)
+    for alias in functions[function]['names']:
         if alias in words:
             words.remove(alias)
 
@@ -124,7 +77,7 @@ def get_command(phrase):
     filtered_devices = devices
     filtered_devices = list(filter(lambda x: x[1] == room, filtered_devices))
     filtered_devices = list(filter(lambda x: x[2] == device_type, filtered_devices))
-    filtered_devices = list(filter(lambda x: fun in x[3], filtered_devices))
+    filtered_devices = list(filter(lambda x: function in x[3], filtered_devices))
     candidate_devices = list(filter(lambda x: len(x[4].intersection(words)) > 0, filtered_devices))
 
     if len(candidate_devices) > 0:
@@ -132,7 +85,7 @@ def get_command(phrase):
     else:
         device_id = list(filter(lambda x: len(x[4]) == 0, filtered_devices))[0][0]
 
-    cmd = functions[fun]['command'].replace('ID', device_id)
+    cmd = functions[function]['command'].replace('ID', device_id)
     return cmd
 
 
