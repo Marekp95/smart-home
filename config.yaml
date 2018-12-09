@@ -63,8 +63,6 @@ rooms:
       functions:
       - turnOn
       - turnOff
-      - temperatureWarm
-      - temperatureCold
       position:
       - nad ławą
     - id: A8
@@ -107,6 +105,7 @@ rooms:
     - id: A12
       deviceType: lamp
       functions:
+      - turnOn
       - turnOff
   - id: bedroom
     names:
@@ -117,6 +116,8 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - temperatureWarm
+      - temperatureCold
       position:
       - na suficie
       - u sufitu
@@ -141,7 +142,6 @@ rooms:
       functions:
       - turnOn
       - turnOff
-      - setBrightness
       position:
       - nocna
     - id: B5
@@ -166,7 +166,14 @@ rooms:
     - id: B7
       deviceType: lamp
       functions:
+      - turnOn
       - turnOff
+    - id: B8
+      deviceType: alarm
+      functions:
+      - turnOn
+      - turnOff
+      - setAlarmTime
   - id: bathroom
     names:
     - łazienka
@@ -201,6 +208,7 @@ rooms:
     - id: C5
       deviceType: lamp
       functions:
+      - turnOn
       - turnOff
   - id: salon
     names:
@@ -221,6 +229,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - setColor
       position:
       - lewa
     - id: D3
@@ -228,12 +237,36 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - setColor
       position:
       - prawa
     - id: D4
       deviceType: lamp
       functions:
+      - turnOn
       - turnOff
+    - id: D5
+      deviceType: curtain
+      functions:
+      - up
+      - down
+      - stop
+      position:
+      - lewa
+    - id: D6
+      deviceType: curtain
+      functions:
+      - up
+      - down
+      - stop
+      position:
+      - prawa
+    - id: D7
+      deviceType: curtain
+      functions:
+      - up
+      - down
+      - stop
   - id: kitchen
     names:
     - kuchnia
@@ -253,6 +286,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - setBrightness
       position:
       - nad szafkami
     - id: E3
@@ -272,8 +306,9 @@ rooms:
     - id: E5
       deviceType: cookerHood
       functions:
-      - turnOn
       - turnOff
+      - faster
+      - slower
     - id: E6
       deviceType: fan
       functions:
@@ -282,6 +317,7 @@ rooms:
     - id: E7
       deviceType: lamp
       functions:
+      - turnOn
       - turnOff
 
 devices:
@@ -311,6 +347,14 @@ devices:
   - id: blower
     names:
     - dmuchawa
+  - id: curtain
+    names:
+    - zasłona
+    - żaluzja
+  - id: alarm
+    names:
+    - budzik
+    - alarm
 
 functions:
   - id: turnOn
@@ -336,22 +380,22 @@ functions:
     - następny
     - dalej
     - kolejny
-    command: set ID ch next
+    command: set ID ch_next
   - id: prev
     names:
     - poprzedni
     - wstecz
     - cofnij
-    command: set ID ch prev
+    command: set ID ch_prev
   - id: volumeUp
     names:
     - podgłośnij
-    command: set ID vol up
+    command: set ID vol_up
   - id: volumeDown
     names:
     - ścisz
     - przycisz
-    command: set ID vol down
+    command: set ID vol_down
   - id: setVolume
     names:
     - głośność
@@ -363,14 +407,51 @@ functions:
     command: set ID vol mute
   - id: temperatureWarm
     names:
-    - ciepła
+    - barwa ciepła
     command: set ID temp warm
   - id: temperatureCold
     names:
-    - zimna
+    - barwa zimna
     command: set ID temp cold
   - id: setBrightness
     names:
-    - jasność
+    - ustaw jasność
     parameter: INT
     command: set ID br INT
+  - id: setColor
+    names:
+    - ustaw kolor
+    parameter: COLOR
+    command: set ID color COLOR
+  - id: setAlarmTime
+    names:
+    - ustaw budzik
+    - ustaw alarm
+    parameter: INT_GG, INT_MM
+    command: set ID time INT_GG:INT_MM
+  - id: up
+    names:
+    - do góry
+    - w górę
+    - podnieś
+    command: up ID
+  - id: down
+    names:
+    - w dół
+    - opuść
+    command: down ID
+  - id: stop
+    names:
+    - stop
+    - zatrzymaj
+    command: stop ID
+  - id: faster
+    names:
+    - szybciej
+    - zwiększ obroty
+    command: fast ID
+  - id: slower
+    names:
+    - wolniej
+    - zmniejsz obroty
+    command: slow ID

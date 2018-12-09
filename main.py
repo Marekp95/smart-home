@@ -52,7 +52,9 @@ def get_command(phrase):
     words = [mapping_to_base_form[x] for x in words if x in mapping_to_base_form]
     words = set(words)
     # print(words)
-    function_list = list(filter(lambda x: len(functions[x]['names'].intersection(words)) > 0, functions))
+    function_list = list(filter(
+        lambda x: len(list(filter(lambda y: len(set(y).intersection(words)) == len(y), functions[x]['names']))) > 0,
+        functions))
     function = function_list[0]
     # print(function)
     for alias in functions[function]['names']:
@@ -60,8 +62,8 @@ def get_command(phrase):
             words.remove(alias)
 
     room = \
-    list(filter(lambda x: len(list(filter(lambda y: len(set(y).intersection(words)) == len(y), rooms[x]))) > 0, rooms))[
-        0]
+        list(filter(lambda x: len(list(filter(lambda y: len(set(y).intersection(words)) == len(y), rooms[x]))) > 0,
+                    rooms))[0]
     # print(room)
     for x in rooms[room]:
         for alias in x:

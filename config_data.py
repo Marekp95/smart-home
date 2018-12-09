@@ -11,7 +11,7 @@ device_types = {}
 
 def build_functions(data, mapping_to_base_form):
     for func in data:
-        names = set(map(lambda x: mapping_to_base_form[x], func['names']))
+        names = set(map(lambda x: tuple(mapping_to_base_form[y] for y in x.split(' ')), func['names']))
         command = func['command']
         functions[func['id']] = {'names': names, 'command': command}
 
