@@ -7,6 +7,7 @@ rooms = {}
 devices = []
 functions = {}
 device_types = {}
+colors = {}
 
 
 def build_functions(data, mapping_to_base_form):
@@ -24,6 +25,11 @@ def build_rooms(data, mapping_to_base_form):
 def build_device_types(data, mapping_to_base_form):
     for device in data:
         device_types[device['id']] = set(map(lambda x: mapping_to_base_form[x], device['names']))
+
+
+def build_colors(data, mapping_to_base_form):
+    for color in data:
+        colors[color['id']] = set(map(lambda x: mapping_to_base_form[x], color['names']))
 
 
 def get_data_by_key(key, data):
@@ -49,6 +55,7 @@ def parse_config(mapping_to_base_form):
         config = yaml.load(stream)
         build_functions(config['functions'], mapping_to_base_form)
         build_device_types(config['devices'], mapping_to_base_form)
+        build_colors(config['colors'], mapping_to_base_form)
         build_rooms(config['rooms'], mapping_to_base_form)
         build_rooms_and_devices(config['rooms'], mapping_to_base_form)
 

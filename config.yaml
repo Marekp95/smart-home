@@ -3,6 +3,8 @@ rooms:
     names:
     - poddasze sekcja lewa
     - poddasze część lewa
+    - poddasze sekcja pierwsza
+    - poddasze część pierwsza
     devices:
       - id: A1
         deviceType: lamp
@@ -14,6 +16,7 @@ rooms:
         - u sufitu
         - na górze
         - u góry
+        - górna
       - id: A2
         deviceType: lamp
         functions:
@@ -47,6 +50,8 @@ rooms:
     names:
     - poddasze sekcja prawa
     - poddasze część prawa
+    - poddasze sekcja druga
+    - poddasze część druga
     devices:
     - id: A6
       deviceType: lamp
@@ -58,6 +63,7 @@ rooms:
       - u sufitu
       - na górze
       - u góry
+      - górna
     - id: A7
       deviceType: lamp
       functions:
@@ -107,6 +113,40 @@ rooms:
       functions:
       - turnOn
       - turnOff
+    - id: A3
+      deviceType: radio
+      functions:
+      - turnOn
+      - turnOff
+      - setChannel
+      - next
+      - prev
+      - setVolume
+      - volumeUp
+      - volumeDown
+      - mute
+    - id: A4
+      deviceType: computer
+      functions:
+        - turnOn
+        - turnOff
+    - id: A5
+      deviceType: monitor
+      functions:
+        - turnOn
+        - turnOff
+    - id: A10
+      deviceType: tv
+      functions:
+      - turnOn
+      - turnOff
+      - setChannel
+      - next
+      - prev
+      - setVolume
+      - volumeUp
+      - volumeDown
+      - mute
   - id: bedroom
     names:
     - sypialnia
@@ -123,6 +163,7 @@ rooms:
       - u sufitu
       - na górze
       - u góry
+      - górna
     - id: B2
       deviceType: lamp
       functions:
@@ -188,6 +229,7 @@ rooms:
       - u sufitu
       - na górze
       - u góry
+      - górna
     - id: C2
       deviceType: lamp
       functions:
@@ -224,6 +266,7 @@ rooms:
       - u sufitu
       - na górze
       - u góry
+      - górna
     - id: D2
       deviceType: lamp
       functions:
@@ -281,6 +324,7 @@ rooms:
       - u sufitu
       - na górze
       - u góry
+      - górna
     - id: E2
       deviceType: lamp
       functions:
@@ -351,6 +395,7 @@ devices:
     names:
     - zasłona
     - żaluzja
+    - roleta
   - id: alarm
     names:
     - budzik
@@ -416,19 +461,24 @@ functions:
   - id: setBrightness
     names:
     - ustaw jasność
+    - jasność
     parameter: INT
     command: set ID br INT
   - id: setColor
     names:
     - ustaw kolor
+    - kolor
     parameter: COLOR
     command: set ID color COLOR
   - id: setAlarmTime
     names:
     - ustaw budzik
     - ustaw alarm
-    parameter: INT_GG, INT_MM
-    command: set ID time INT_GG:INT_MM
+    - godzina
+    - budzenie
+    - budzik
+    parameter: INT, INT
+    command: set ID time INT:INT
   - id: up
     names:
     - do góry
@@ -455,3 +505,14 @@ functions:
     - wolniej
     - zmniejsz obroty
     command: slow ID
+
+colors:
+  - id: red
+    names:
+    - czerwony
+  - id: green
+    names:
+    - zielony
+  - id: blue
+    names:
+    - niebieski
