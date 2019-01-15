@@ -325,7 +325,7 @@ correct = 0
 for test_case in test_cases:
     command_txt, expected_result = test_case
     command = get_command_safe(command_txt)
-    if command == expected_result:
+    if command == expected_result or expected_result == 'error' and command.startswith(expected_result):
         correct += 1
     else:
         print(f'command: {command}, expected: {expected_result}, text: {command_txt}')
