@@ -11,6 +11,7 @@ rooms:
         functions:
         - turnOn
         - turnOff
+        - invoke
         position:
         - na suficie
         - u sufitu
@@ -22,6 +23,7 @@ rooms:
         functions:
         - turnOn
         - turnOff
+        - invoke
         position:
         - na biurku
         - biurko
@@ -37,16 +39,19 @@ rooms:
         - volumeUp
         - volumeDown
         - mute
+        - invoke
       - id: A4
         deviceType: computer
         functions:
           - turnOn
           - turnOff
+          - invoke
       - id: A5
         deviceType: monitor
         functions:
           - turnOn
           - turnOff
+          - invoke
   - id: attic2
     names:
     - poddasze sekcja prawa
@@ -59,6 +64,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - na suficie
       - u sufitu
@@ -70,6 +76,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - nad ławą
     - id: A8
@@ -77,6 +84,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - lewa
     - id: A9
@@ -84,6 +92,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - prawa
     - id: A10
@@ -98,11 +107,13 @@ rooms:
       - volumeUp
       - volumeDown
       - mute
+      - invoke
     - id: A11
       deviceType: lamp
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - telewizor
   - id: attic
@@ -114,6 +125,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - na biurku
       - biurko
@@ -122,6 +134,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - nad ławą
     - id: A8
@@ -129,6 +142,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - lewa
     - id: A9
@@ -136,6 +150,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - prawa
     - id: A11
@@ -143,6 +158,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - telewizor
     - id: A12
@@ -150,6 +166,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
     - id: A3
       deviceType: radio
       functions:
@@ -162,16 +179,19 @@ rooms:
       - volumeUp
       - volumeDown
       - mute
+      - invoke
     - id: A4
       deviceType: computer
       functions:
         - turnOn
         - turnOff
+        - invoke
     - id: A5
       deviceType: monitor
       functions:
         - turnOn
         - turnOff
+        - invoke
     - id: A10
       deviceType: tv
       functions:
@@ -184,6 +204,7 @@ rooms:
       - volumeUp
       - volumeDown
       - mute
+      - invoke
   - id: bedroom
     names:
     - sypialnia
@@ -193,6 +214,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - lewa
     - id: B3
@@ -200,6 +222,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - prawa
     - id: B4
@@ -207,6 +230,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - nocna
     - id: B5
@@ -221,11 +245,13 @@ rooms:
       - volumeUp
       - volumeDown
       - mute
+      - invoke
     - id: B6
       deviceType: lamp
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - za telewizorem
     - id: B7
@@ -233,6 +259,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - całe
       - wszystko
@@ -243,6 +270,7 @@ rooms:
       - turnOff
       - temperatureWarm
       - temperatureCold
+      - invoke
     - id: B8
       deviceType: alarm
       functions:
@@ -258,6 +286,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - nad lustrem
     - id: C3
@@ -265,16 +294,19 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
     - id: C4
       deviceType: blower
       functions:
       - turnOn
       - turnOff
+      - invoke
     - id: C5
       deviceType: lamp
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - całe
       - wszystko
@@ -283,6 +315,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
   - id: salon
     names:
     - salon
@@ -293,6 +326,7 @@ rooms:
       - turnOn
       - turnOff
       - setColor
+      - invoke
       position:
       - lewa
     - id: D3
@@ -301,6 +335,7 @@ rooms:
       - turnOn
       - turnOff
       - setColor
+      - invoke
       position:
       - prawa
     - id: D4
@@ -308,6 +343,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - całe
       - wszystko
@@ -316,6 +352,13 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
+    - id: D7
+      deviceType: curtain
+      functions:
+      - up
+      - down
+      - stop
     - id: D5
       deviceType: curtain
       functions:
@@ -332,12 +375,6 @@ rooms:
       - stop
       position:
       - prawa
-    - id: D7
-      deviceType: curtain
-      functions:
-      - up
-      - down
-      - stop
   - id: kitchen
     names:
     - kuchnia
@@ -348,6 +385,7 @@ rooms:
       - turnOn
       - turnOff
       - setBrightness
+      - invoke
       position:
       - nad szafkami
     - id: E3
@@ -355,6 +393,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - pod szafkami
     - id: E4
@@ -362,6 +401,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - okap
       - okapu
@@ -372,6 +412,7 @@ rooms:
       - turnOff
       - faster
       - slower
+      - invoke
       position:
       - okap
       - okapu
@@ -380,11 +421,13 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
     - id: E7
       deviceType: lamp
       functions:
       - turnOn
       - turnOff
+      - invoke
       position:
       - całe
       - wszystko
@@ -393,6 +436,7 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      - invoke
 
 devices:
   - id: lamp
@@ -412,9 +456,6 @@ devices:
   - id: tv
     names:
     - telewizor
-  - id: cookerHood
-    names:
-    - okap
   - id: fan
     names:
     - wentylator
@@ -430,6 +471,7 @@ devices:
     names:
     - budzik
     - alarm
+    - budzenie
 
 functions:
   - id: turnOn
@@ -438,6 +480,7 @@ functions:
     - załącz
     - zapal
     - załącza
+    - załóż
     command: on ID
   - id: turnOff
     names:
@@ -513,6 +556,7 @@ functions:
     - godzina
     - budzenie
     - budzik
+    - ustaw
     parameter: INT, INT
     command: set ID time INT:INT
   - id: up
@@ -545,6 +589,10 @@ functions:
     - wolno
     - zmniejsz obroty
     command: slow ID
+  - id: invoke
+    names:
+    - undefined
+    command: xchg ID
 
 colors:
   - id: red

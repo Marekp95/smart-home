@@ -67,8 +67,8 @@ test_cases = [
     ('Załącz lampę lewą na poddaszu', {'on A8'}),
     ('Wyłącz lampę lewą na poddaszu', {'off A8'}),
     ('lampa prawa na poddaszu', {'xchg A9'}),
-    ('Załącz lampę lewą na poddaszu', {'on A9'}),
-    ('Wyłącz lampę lewą na poddaszu', {'off A9'}),
+    ('Załącz lampę lewą na poddaszu', {'on A8'}),
+    ('Wyłącz lampę lewą na poddaszu', {'off A8'}),
     ('Załącz telewizor na poddaszu', {'on A10'}),
     ('telewizor na poddaszu', {'xchg A10'}),
     ('telewizor na poddaszu kanał piąty', {'set A10 ch 5'}),
@@ -260,20 +260,27 @@ def get_command(phrase):
     function_list = list(filter(
         lambda x: len(list(filter(lambda y: len(set(y).intersection(words)) == len(y), functions[x]['names']))) > 0,
         functions))
-    function = function_list[0]
-    # print(function)
-    for alias in functions[function]['names']:
-        if alias in words:
-            words.remove(alias)
-
-    room = \
-        list(filter(lambda x: len(list(filter(lambda y: len(set(y).intersection(words)) == len(y), rooms[x]))) > 0,
-                    rooms))[0]
-    # print(room)
-    for x in rooms[room]:
-        for alias in x:
+    if len(function_list) > 0:
+        function = function_list[0]
+        for alias in functions[function]['names']:
             if alias in words:
                 words.remove(alias)
+    else:
+        function = 'invoke'
+    # print(function)
+
+    filtered_rooms = list(
+        filter(lambda x: len(list(filter(lambda y: len(set(y).intersection(words)) == len(y), rooms[x]))) > 0, rooms))
+
+    if len(filtered_rooms) > 0:
+        room = filtered_rooms[0]
+        for x in rooms[room]:
+            for alias in x:
+                if alias in words:
+                    words.remove(alias)
+    else:
+        room = 'undefined'
+    # print(room)
 
     # print(words)
     device_type = list(filter(lambda x: len(device_types[x].intersection(words)) > 0, device_types))[0]
@@ -284,32 +291,41 @@ def get_command(phrase):
 
     # print(words)
     filtered_devices = devices
-    filtered_devices = list(filter(lambda x: x[1] == room, filtered_devices))
     filtered_devices = list(filter(lambda x: x[2] == device_type, filtered_devices))
+    filtered_devices_from_room = list(filter(lambda x: x[1] == room, filtered_devices))
     filtered_devices_supporting_function = list(filter(lambda x: function in x[3], filtered_devices))
+    filtered_devices_supporting_function_from_room = list(
+        filter(lambda x: x[1] == room, filtered_devices_supporting_function))
     candidate_devices = list(
         filter(lambda x: len(list(filter(lambda y: len(set(y).intersection(words)) == len(y), x[4]))) > 0,
                filtered_devices_supporting_function))
+    candidate_devices_from_room = list(filter(lambda x: x[1] == room, candidate_devices))
 
-    if len(candidate_devices) > 0:
-        device_id = candidate_devices[0][0]
+    if len(candidate_devices_from_room) > 0:
+        device_id = candidate_devices_from_room[0][0]
     else:
-        devices_list = list(filter(lambda x: len(x[4]) == 0, filtered_devices_supporting_function))
+        devices_list = list(filter(lambda x: len(x[4]) == 0, filtered_devices_supporting_function_from_room))
         if len(devices_list) == 1:
             device_id = devices_list[0][0]
         else:
             devices_list = list(
                 filter(lambda x: len(list(filter(lambda y: len(set(y).intersection(words)) == len(y), x[4]))) > 0,
-                       filtered_devices))
+                       filtered_devices_from_room))
             if len(devices_list) > 0:
                 return 'error: Urządzenie nie obsługuje tego polecenia'
             else:
-                if len(filtered_devices_supporting_function) > 0:
-                    device_id = filtered_devices_supporting_function[0][0]
+                if len(filtered_devices_supporting_function_from_room) > 0:
+                    device_id = filtered_devices_supporting_function_from_room[0][0]
+                elif len(candidate_devices) > 0:
+                    device_id = candidate_devices[0][0]
+                elif len(filtered_devices) > 0:
+                    device_id = filtered_devices[0][0]
                 else:
                     return 'error: Polecenie jest niejednoznaczne'
 
     cmd = functions[function]['command'].replace('ID', device_id)
+    if len(ints) < cmd.count('INT'):
+        return 'error: Niepoprawne parametry polecenia'
     for i in range(min(len(ints), len(cmd.split('INT')) - 1)):
         cmd = cmd.replace('INT', ints[i], 1)
     if cmd.count('COLOR') > 0:
