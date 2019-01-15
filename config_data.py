@@ -10,26 +10,31 @@ device_types = {}
 colors = {}
 
 
+def get_base_form(mapping, key):
+    return mapping[key] if key in mapping else key
+
+
 def build_functions(data, mapping_to_base_form):
     for func in data:
-        names = set(map(lambda x: tuple(mapping_to_base_form[y] for y in x.split(' ')), func['names']))
+        names = set(map(lambda x: tuple(get_base_form(mapping_to_base_form, y) for y in x.split(' ')), func['names']))
         command = func['command']
         functions[func['id']] = {'names': names, 'command': command}
 
 
 def build_rooms(data, mapping_to_base_form):
     for room in data:
-        rooms[room['id']] = set(map(lambda x: tuple(mapping_to_base_form[y] for y in x.split(' ')), get_data_by_key('names', room)))
+        rooms[room['id']] = set(map(lambda x: tuple(get_base_form(mapping_to_base_form, y) for y in x.split(' ')),
+                                    get_data_by_key('names', room)))
 
 
 def build_device_types(data, mapping_to_base_form):
     for device in data:
-        device_types[device['id']] = set(map(lambda x: mapping_to_base_form[x], device['names']))
+        device_types[device['id']] = set(map(lambda x: get_base_form(mapping_to_base_form, x), device['names']))
 
 
 def build_colors(data, mapping_to_base_form):
     for color in data:
-        colors[color['id']] = set(map(lambda x: mapping_to_base_form[x], color['names']))
+        colors[color['id']] = set(map(lambda x: get_base_form(mapping_to_base_form, x), color['names']))
 
 
 def get_data_by_key(key, data):
@@ -45,7 +50,8 @@ def build_rooms_and_devices(data, mapping_to_base_form):
                 room_id,
                 get_data_by_key('deviceType', device),
                 set(get_data_by_key('functions', device)),
-                set(map(lambda x: tuple(mapping_to_base_form[y] for y in x.split(' ')), get_data_by_key('position', device)))
+                set(map(lambda x: tuple(get_base_form(mapping_to_base_form, y) for y in x.split(' ')),
+                        get_data_by_key('position', device)))
             ]
             devices.append(device_data)
 
@@ -58,65 +64,3 @@ def parse_config(mapping_to_base_form):
         build_colors(config['colors'], mapping_to_base_form)
         build_rooms(config['rooms'], mapping_to_base_form)
         build_rooms_and_devices(config['rooms'], mapping_to_base_form)
-
-
-rooms_mock = {
-    'bedroom': {
-        'sypialnia'
-    },
-}
-
-devices_mock = [
-    (
-        'B1',
-        'bedroom',
-        'lamp',
-        {'turnOn', 'turnOff'},
-        {'górne', 'sufit'},
-
-    ),
-    (
-        'B2',
-        'bedroom',
-        'lamp',
-        {'turnOn', 'turnOff'},
-        {'lewa'},
-    ),
-    (
-        'B3',
-        'bedroom',
-        'lamp',
-        {'turnOn', 'turnOff'},
-        {'prawa'},
-    ),
-    (
-        'B7',
-        'bedroom',
-        'lamp',
-        {'turnOn', 'turnOff'},
-        set({}),
-    ),
-]
-
-functions_mock = {
-    'turnOn': {
-        'names': {
-            'włączyć', 'załączyć', 'uruchomić', 'zapalić',
-        },
-        'commandni': 'on ID',
-    },
-    'turnOff': {
-        'names': {
-            'wyłączyć', 'zgasić',
-        },
-        'command': 'off ID',
-    },
-}
-
-device_types_mock = {
-    'lamp': {
-        'lampa',
-        'światło',
-        'oświetlenie',
-    },
-}

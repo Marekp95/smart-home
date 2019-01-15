@@ -24,6 +24,7 @@ rooms:
         - turnOff
         position:
         - na biurku
+        - biurko
       - id: A3
         deviceType: radio
         functions:
@@ -103,11 +104,47 @@ rooms:
       - turnOn
       - turnOff
       position:
-      - za telewizorem
+      - telewizor
   - id: attic
     names:
     - poddasze
     devices:
+    - id: A2
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - na biurku
+      - biurko
+    - id: A7
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - nad ławą
+    - id: A8
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - lewa
+    - id: A9
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - prawa
+    - id: A11
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - telewizor
     - id: A12
       deviceType: lamp
       functions:
@@ -151,19 +188,6 @@ rooms:
     names:
     - sypialnia
     devices:
-    - id: B1
-      deviceType: lamp
-      functions:
-      - turnOn
-      - turnOff
-      - temperatureWarm
-      - temperatureCold
-      position:
-      - na suficie
-      - u sufitu
-      - na górze
-      - u góry
-      - górna
     - id: B2
       deviceType: lamp
       functions:
@@ -209,6 +233,16 @@ rooms:
       functions:
       - turnOn
       - turnOff
+      position:
+      - całe
+      - wszystko
+    - id: B1
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      - temperatureWarm
+      - temperatureCold
     - id: B8
       deviceType: alarm
       functions:
@@ -219,17 +253,6 @@ rooms:
     names:
     - łazienka
     devices:
-    - id: C1
-      deviceType: lamp
-      functions:
-      - turnOn
-      - turnOff
-      position:
-      - na suficie
-      - u sufitu
-      - na górze
-      - u góry
-      - górna
     - id: C2
       deviceType: lamp
       functions:
@@ -252,21 +275,18 @@ rooms:
       functions:
       - turnOn
       - turnOff
-  - id: salon
-    names:
-    - salon
-    devices:
-    - id: D1
+      position:
+      - całe
+      - wszystko
+    - id: C1
       deviceType: lamp
       functions:
       - turnOn
       - turnOff
-      position:
-      - na suficie
-      - u sufitu
-      - na górze
-      - u góry
-      - górna
+  - id: salon
+    names:
+    - salon
+    devices:
     - id: D2
       deviceType: lamp
       functions:
@@ -284,6 +304,14 @@ rooms:
       position:
       - prawa
     - id: D4
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - całe
+      - wszystko
+    - id: D1
       deviceType: lamp
       functions:
       - turnOn
@@ -314,17 +342,6 @@ rooms:
     names:
     - kuchnia
     devices:
-    - id: E1
-      deviceType: lamp
-      functions:
-      - turnOn
-      - turnOff
-      position:
-      - na suficie
-      - u sufitu
-      - na górze
-      - u góry
-      - górna
     - id: E2
       deviceType: lamp
       functions:
@@ -347,18 +364,31 @@ rooms:
       - turnOff
       position:
       - okap
+      - okapu
     - id: E5
-      deviceType: cookerHood
+      deviceType: fan
       functions:
+      - turnOn
       - turnOff
       - faster
       - slower
+      position:
+      - okap
+      - okapu
     - id: E6
       deviceType: fan
       functions:
       - turnOn
       - turnOff
     - id: E7
+      deviceType: lamp
+      functions:
+      - turnOn
+      - turnOff
+      position:
+      - całe
+      - wszystko
+    - id: E1
       deviceType: lamp
       functions:
       - turnOn
@@ -407,9 +437,11 @@ functions:
     - włącz
     - załącz
     - zapal
+    - załącza
     command: on ID
   - id: turnOff
     names:
+    - wyłącza
     - wyłącz
     - zgaś
     command: off ID
@@ -418,6 +450,7 @@ functions:
     - zmień
     - wybierz
     - przełącz
+    - kanał
     parameter: INT
     command: set ID ch INT
   - id: next
@@ -435,12 +468,14 @@ functions:
   - id: volumeUp
     names:
     - podgłośnij
-    command: set ID vol_up
+    - głośniej
+    command: vol_up ID
   - id: volumeDown
     names:
     - ścisz
     - przycisz
-    command: set ID vol_down
+    - ciszej
+    command: vol_down ID
   - id: setVolume
     names:
     - głośność
@@ -453,17 +488,18 @@ functions:
   - id: temperatureWarm
     names:
     - barwa ciepła
-    command: set ID temp warm
+    command: warm ID
   - id: temperatureCold
     names:
     - barwa zimna
-    command: set ID temp cold
+    command: cold ID
   - id: setBrightness
     names:
     - ustaw jasność
     - jasność
+    - '%'
     parameter: INT
-    command: set ID br INT
+    command: set ID bright INT
   - id: setColor
     names:
     - ustaw kolor
@@ -484,11 +520,13 @@ functions:
     - do góry
     - w górę
     - podnieś
+    - odsłoń
     command: up ID
   - id: down
     names:
     - w dół
     - opuść
+    - zasłoń
     command: down ID
   - id: stop
     names:
@@ -498,11 +536,13 @@ functions:
   - id: faster
     names:
     - szybciej
+    - szybko
     - zwiększ obroty
     command: fast ID
   - id: slower
     names:
     - wolniej
+    - wolno
     - zmniejsz obroty
     command: slow ID
 
