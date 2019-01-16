@@ -474,20 +474,6 @@ devices:
     - budzenie
 
 functions:
-  - id: turnOn
-    names:
-    - włącz
-    - załącz
-    - zapal
-    - załącza
-    - załóż
-    command: on ID
-  - id: turnOff
-    names:
-    - wyłącza
-    - wyłącz
-    - zgaś
-    command: off ID
   - id: setChannel
     names:
     - zmień
@@ -555,7 +541,7 @@ functions:
     - ustaw alarm
     - godzina
     - budzenie
-    - budzik
+    - budzik godzina
     - ustaw
     parameter: INT, INT
     command: set ID time INT:INT
@@ -593,6 +579,20 @@ functions:
     names:
     - undefined
     command: xchg ID
+  - id: turnOn
+    names:
+    - włącz
+    - załącz
+    - zapal
+    - załącza
+    - załóż
+    command: on ID
+  - id: turnOff
+    names:
+    - wyłącza
+    - wyłącz
+    - zgaś
+    command: off ID
 
 colors:
   - id: red
@@ -604,3 +604,35 @@ colors:
   - id: blue
     names:
     - niebieski
+
+digits:
+  - id: 1
+    names:
+    - pierszy
+  - id: 2
+    names:
+    - drugi
+  - id: 3
+    names:
+    - trzeci
+  - id: 4
+    names:
+    - czwarty
+  - id: 5
+    names:
+    - piąty
+  - id: 6
+    names:
+    - szósty
+  - id: 7
+    names:
+    - siódmy
+  - id: 8
+    names:
+    - ósmy
+  - id: 9
+    names:
+    - dziewiąty
+  - id: 10
+    names:
+    - dziesiąty

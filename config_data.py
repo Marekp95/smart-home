@@ -8,6 +8,7 @@ devices = []
 functions = {}
 device_types = {}
 colors = {}
+digits = {}
 
 
 def get_base_form(mapping, key):
@@ -37,6 +38,11 @@ def build_colors(data, mapping_to_base_form):
         colors[color['id']] = set(map(lambda x: get_base_form(mapping_to_base_form, x), color['names']))
 
 
+def build_digits(data):
+    for digit in data:
+        digits[digit['id']] = set(digit['names'])
+
+
 def get_data_by_key(key, data):
     return '' if key not in data else data[key]
 
@@ -62,5 +68,6 @@ def parse_config(mapping_to_base_form):
         build_functions(config['functions'], mapping_to_base_form)
         build_device_types(config['devices'], mapping_to_base_form)
         build_colors(config['colors'], mapping_to_base_form)
+        build_digits(config['digits'])
         build_rooms(config['rooms'], mapping_to_base_form)
         build_rooms_and_devices(config['rooms'], mapping_to_base_form)

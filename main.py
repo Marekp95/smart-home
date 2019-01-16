@@ -12,7 +12,36 @@ def snd_cmd(res):
     s.sendto(res.encode('utf-8'), ('172.19.129.11', 1965))
 
     s.close()
+
+
 # end def
+
+
+def words_equals(word1, word2):
+    len_diff = abs(len(word1) - len(word2))
+    if len_diff == 0:
+        return sum(word1[i] != word2[i] for i in range(len(word1))) < 1
+    if len_diff > 1:
+        return False
+    longer_word = word1 if len(word1) > len(word2) else word2
+    shorter_word = word1 if len(word1) < len(word2) else word2
+    min_diff = len(longer_word)
+    for i in range(len(longer_word)):
+        word = longer_word[:i] + longer_word[i + 1:]
+        min_diff = min(min_diff, sum(word[i] != shorter_word[i] for i in range(len(shorter_word))))
+    return min_diff == 0
+
+
+def count_equal_words(set1, set2):
+    i = 0
+    for word1 in set1:
+        for word2 in set2:
+            min_len = min(len(word1), len(word2))
+            if min_len <= 2:
+                i += 1 if word1 == word2 else 0
+            elif words_equals(word1, word2):
+                i += 1
+    return i
 
 
 def create_word_to_basic_form_mapping():
@@ -44,17 +73,30 @@ devices = c.devices
 functions = c.functions
 device_types = c.device_types
 colors = c.colors
+digits = c.digits
+
+
+def convert_numbers_to_digits(phrase):
+    words = phrase.split(' ')
+    for number in digits:
+        for name in digits[number]:
+            for i in range(len(words)):
+                if words[i] == name:
+                    words[i] = str(number)
+    return ' '.join(words)
 
 
 def get_command(phrase):
+    phrase = phrase.lower()
+    phrase = convert_numbers_to_digits(phrase)
     ints = re.compile('\d+').findall(phrase)
     words = re.split('[\s\d]', phrase)
-    words = [x.lower() for x in words if x != '']
+    words = [x for x in words if x != '']
     words = [mapping_to_base_form[x] for x in words if x in mapping_to_base_form]
     words = set(words)
     # print(words)
     function_list = list(filter(
-        lambda x: len(list(filter(lambda y: len(set(y).intersection(words)) == len(y), functions[x]['names']))) > 0,
+        lambda x: len(list(filter(lambda y: count_equal_words(set(y), words) == len(y), functions[x]['names']))) > 0,
         functions))
     if len(function_list) > 0:
         function = function_list[0]
@@ -66,7 +108,7 @@ def get_command(phrase):
     # print(function)
 
     filtered_rooms = list(
-        filter(lambda x: len(list(filter(lambda y: len(set(y).intersection(words)) == len(y), rooms[x]))) > 0, rooms))
+        filter(lambda x: len(list(filter(lambda y: count_equal_words(y, words) == len(y), rooms[x]))) > 0, rooms))
 
     if len(filtered_rooms) > 0:
         room = filtered_rooms[0]
@@ -79,7 +121,7 @@ def get_command(phrase):
     # print(room)
 
     # print(words)
-    device_type = list(filter(lambda x: len(device_types[x].intersection(words)) > 0, device_types))[0]
+    device_type = list(filter(lambda x: count_equal_words(device_types[x], words) > 0, device_types))[0]
     # print(device_type)
     for alias in device_types[device_type]:
         if alias in words:
@@ -93,7 +135,7 @@ def get_command(phrase):
     filtered_devices_supporting_function_from_room = list(
         filter(lambda x: x[1] == room, filtered_devices_supporting_function))
     candidate_devices = list(
-        filter(lambda x: len(list(filter(lambda y: len(set(y).intersection(words)) == len(y), x[4]))) > 0,
+        filter(lambda x: len(list(filter(lambda y: count_equal_words(set(y), words) == len(y), x[4]))) > 0,
                filtered_devices_supporting_function))
     candidate_devices_from_room = list(filter(lambda x: x[1] == room, candidate_devices))
 
@@ -105,7 +147,7 @@ def get_command(phrase):
             device_id = devices_list[0][0]
         else:
             devices_list = list(
-                filter(lambda x: len(list(filter(lambda y: len(set(y).intersection(words)) == len(y), x[4]))) > 0,
+                filter(lambda x: len(list(filter(lambda y: count_equal_words(set(y), words) == len(y), x[4]))) > 0,
                        filtered_devices_from_room))
             if len(devices_list) > 0:
                 return 'error: Urządzenie nie obsługuje tego polecenia'
@@ -125,7 +167,7 @@ def get_command(phrase):
     for i in range(min(len(ints), len(cmd.split('INT')) - 1)):
         cmd = cmd.replace('INT', ints[i], 1)
     if cmd.count('COLOR') > 0:
-        color = list(filter(lambda x: len(colors[x].intersection(words)) > 0, colors))[0]
+        color = list(filter(lambda x: count_equal_words(colors[x], words) > 0, colors))[0]
         cmd = cmd.replace('COLOR', color)
     return cmd
 
